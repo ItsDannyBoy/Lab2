@@ -51,7 +51,7 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for (C_N_BITS+1)*C_CLK_PRD; --Enough for Q to perform a full cycle
+            wait for (2*C_N_BITS+1)*C_CLK_PRD/2 + C_CLK_PRD/10; --Enough for Q to perform a full cycle
             rst_sig <= not rst_sig;
         end loop;
 	end process;
@@ -59,7 +59,7 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 15*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
+            wait for (4*C_N_BITS+3)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
             ena_sig <= not ena_sig;
         end loop;
 	end process;
@@ -67,7 +67,7 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 60*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
+            wait for (8*C_N_BITS+7)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
             l_rn_sig <= not l_rn_sig;
         end loop;
 	end process;
