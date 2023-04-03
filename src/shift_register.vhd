@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity shift_register is
 generic (
-	G_N_BITS : integer:= 1   --The size of Q output
+	G_N_BITS : integer   --The size of Q output
 );
 port (
 	CLK 	: in  std_logic; -- System clock
