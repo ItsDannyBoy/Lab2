@@ -20,20 +20,24 @@ port (
 );
 end entity;
 architecture behave of shift_register is 
+	signal q_sig : std_logic_vector(Q'high downto Q'low); -- Same size as Q output
+begin
+	Q <= q_sig;
+
 	process(CLK, RST)
     begin
         if RST='0' then
-            Q <= (others=>0); -- reset output to 0
+            q_sig <= (others=>'0'); -- reset output to 0
         elsif rising_edge(CLK) then
 			if ENA='1' then
-				if L_Rn = '1'
-					Q <= shift_left(Q,1) -- 1 is the number of bits to shift
+				if L_Rn = '1' then
+					q_sig <= std_logic_vector(shift_left(unsigned(q_sig),1)); -- 1 is the number of bits to shift
 				else --L_Rn=0
-					Q <= shift_right(Q,1);
+					q_sig <= std_logic_vector(shift_right(unsigned(q_sig),1)); -- Type of shift depends on input to function.
+													 				-- Unsigned=Logical, Signed=Arithmetic
+				-- The shift_left function in numeric_std package takes an unsigned as first argument and it returns an unsigned value.
 				end if;
 			end if;
         end if;
     end process;
-begin
-	
 end architecture;
