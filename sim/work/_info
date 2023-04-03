@@ -10,11 +10,11 @@ z2
 cModel Technology
 Z0 dC:/Users/danih/OneDrive - ort braude college of engineering/Desktop/VHDL/Lab/Lab2/sim
 Eshift_register
-Z1 w1680507264
+Z1 w1680507621
 Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 10
+!i122 16
 R0
 Z5 8../src/shift_register.vhd
 Z6 F../src/shift_register.vhd
@@ -24,9 +24,9 @@ VYg<]b^8bQQbj7Vg_LB:H]1
 !s100 5Ee8OeF@jh__LME7OO<:M2
 Z7 OV;C;2020.1;71
 32
-Z8 !s110 1680507293
+Z8 !s110 1680508121
 !i10b 1
-Z9 !s108 1680507293.000000
+Z9 !s108 1680508121.000000
 Z10 !s90 -reportprogress|300|../src/shift_register.vhd|
 Z11 !s107 ../src/shift_register.vhd|
 !i113 1
@@ -36,11 +36,11 @@ R2
 R3
 R4
 DEx4 work 14 shift_register 0 22 Yg<]b^8bQQbj7Vg_LB:H]1
-!i122 10
-l24
-L22 22
-V6P6;faBlSkVAa6h?[WDLD2
-!s100 7g<;L34P6@LP0kPBLZGjm3
+!i122 16
+l25
+L22 23
+V4gW3^i]bkX<ZNPl@6f^CE1
+!s100 T6bG;jZXU?hF7WSz00<5b2
 R7
 32
 R8
@@ -51,10 +51,10 @@ R11
 !i113 1
 R12
 Eshift_register_tb
-Z13 w1680506318
+Z13 w1680508063
 R3
 R4
-!i122 11
+!i122 17
 R0
 Z14 8../src/shift_register_tb.vhd
 Z15 F../src/shift_register_tb.vhd
@@ -68,24 +68,24 @@ R8
 !i10b 1
 R9
 Z16 !s90 -reportprogress|300|../src/shift_register_tb.vhd|
-!s107 ../src/shift_register_tb.vhd|
+Z17 !s107 ../src/shift_register_tb.vhd|
 !i113 1
 R12
 Abehave
 R3
 R4
-DEx4 work 17 shift_register_tb 0 22 l8hDc;OVoHAIa7zlJET5U2
-!i122 11
-l34
-L7 69
-VX94`EU623e@bQ<hck[I>M1
-!s100 Tk;dfbkAlek=@P1C1ASKz3
+Z18 DEx4 work 17 shift_register_tb 0 22 l8hDc;OVoHAIa7zlJET5U2
+!i122 17
+l35
+Z19 L7 70
+Z20 VNGDdd584UX;cl^]zE77;W0
+Z21 !s100 KR^46fMU6U`9L>3`5?6Of3
 R7
 32
 R8
 !i10b 1
 R9
 R16
-Z17 !s107 ../src/shift_register_tb.vhd|
+R17
 !i113 1
 R12
