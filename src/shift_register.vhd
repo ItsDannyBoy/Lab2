@@ -19,7 +19,7 @@ port (
 							 --This is the output of the shift register.
 );
 end entity;
-architecture behave of pulse_generator is 
+architecture behave of shift_register is 
 	process(CLK, RST)
     begin
         if RST='0' then
