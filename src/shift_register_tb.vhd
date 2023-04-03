@@ -9,6 +9,7 @@ architecture behave of shift_register_tb is    -- This is the architecture of th
     -- constants declaration    
 	constant C_N_BITS               : integer := 7;
     constant C_CLK_PRD              : time := 20 ns; -- 50Mhz
+    constant C_ITERATIONS           : integer := 3; -- 50Mhz
     
 
     component shift_register is                -- This is the component declaration.
@@ -47,7 +48,7 @@ begin
     );
     process
     begin
-        for iteration in 3 to 0 loop -- 3 is arbitrary
+        for iteration in 0 to C_ITERATIONS loop -- Goes up
             wait for 2*C_CLK_PRD;
             rst_sig <= not rst_sig;
         end loop;
@@ -55,7 +56,7 @@ begin
 
     process
     begin
-        for iteration in 3 to 0 loop -- 3 is arbitrary
+        for iteration in 0 to C_ITERATIONS loop -- Goes up
             wait for 4*C_CLK_PRD;
             ena_sig <= not ena_sig;
         end loop;
@@ -63,7 +64,7 @@ begin
 
     process
     begin
-        for iteration in 3 to 0 loop -- 3 is arbitrary
+        for iteration in 0 to C_ITERATIONS loop -- Goes up
             wait for 8*C_CLK_PRD;
             l_rn_sig <= not ena_sig;
         end loop;
