@@ -9,7 +9,7 @@ architecture behave of shift_register_tb is    -- This is the architecture of th
     -- constants declaration    
 	constant C_N_BITS               : integer := 4;
     constant C_CLK_PRD              : time := 20 ns; -- 50Mhz
-    constant C_ITERATIONS           : integer := 3; -- 50Mhz
+    constant C_ITERATIONS           : integer := 3; -- Value is arbitrary
     
 
     component shift_register is                -- This is the component declaration.
@@ -28,7 +28,7 @@ architecture behave of shift_register_tb is    -- This is the architecture of th
 
     -- signals declaration  
     signal clk_sig  : std_logic := '0';
-    signal rst_sig  : std_logic := '0';
+    signal rst_sig  : std_logic := '1';
     signal ena_sig  : std_logic := '1';
     signal l_rn_sig  : std_logic := '1';
     --signal q_out_sig  : std_logic_vector(C_N_BITS-1 downto 0) := (others=>'0');
@@ -51,7 +51,7 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 5*C_CLK_PRD;
+            wait for (C_N_BITS+1)*C_CLK_PRD; --Enough for Q to perform a full cycle
             rst_sig <= not rst_sig;
         end loop;
 	end process;
@@ -59,7 +59,7 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 10*C_CLK_PRD;
+            wait for 15*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
             ena_sig <= not ena_sig;
         end loop;
 	end process;
@@ -67,8 +67,8 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 15*C_CLK_PRD;
-            l_rn_sig <= not ena_sig;
+            wait for 60*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
+            l_rn_sig <= not l_rn_sig;
         end loop;
 	end process;
     --q_out_sig <= "1011";
