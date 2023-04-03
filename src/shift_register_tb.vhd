@@ -7,7 +7,7 @@ end entity;
 architecture behave of shift_register_tb is    -- This is the architecture of the testbench
 
     -- constants declaration    
-	constant C_N_BITS               : integer := 7;
+	constant C_N_BITS               : integer := 4;
     constant C_CLK_PRD              : time := 20 ns; -- 50Mhz
     constant C_ITERATIONS           : integer := 3; -- 50Mhz
     
@@ -31,6 +31,8 @@ architecture behave of shift_register_tb is    -- This is the architecture of th
     signal rst_sig  : std_logic := '0';
     signal ena_sig  : std_logic := '1';
     signal l_rn_sig  : std_logic := '1';
+    --signal q_out_sig  : std_logic_vector(C_N_BITS-1 downto 0) := (others=>'0');
+    signal q_out_sig  : std_logic_vector(C_N_BITS-1 downto 0);
     
 begin
    
@@ -42,14 +44,14 @@ begin
     port map (
         RST                 => rst_sig, -- The RST input of the uut instance of the pulse generator component is connected to rst_sig signal
         CLK                 => clk_sig, -- The CLK input of the uut instance of the pulse generator component is connected to clk_sig signal
-        ENA                => ena_sig,
+        ENA                 => ena_sig,
         L_Rn                => l_rn_sig,
-        Q               => open     -- outputs can be left opened
+        Q                   => q_out_sig    
     );
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 2*C_CLK_PRD;
+            wait for 5*C_CLK_PRD;
             rst_sig <= not rst_sig;
         end loop;
 	end process;
@@ -57,7 +59,7 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 4*C_CLK_PRD;
+            wait for 10*C_CLK_PRD;
             ena_sig <= not ena_sig;
         end loop;
 	end process;
@@ -65,11 +67,14 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for 8*C_CLK_PRD;
+            wait for 15*C_CLK_PRD;
             l_rn_sig <= not ena_sig;
         end loop;
 	end process;
-    
+    --q_out_sig <= "1011";
+    -- create_q: for i in q_out_sig'range generate
+    --     q_out_sig(i) <= '1' when i mod 2 = 1 else '0';
+    -- end generate;
     clk_sig <= not clk_sig after C_CLK_PRD / 2;     -- clk_sig toggles every C_CLK_PRD/2 ns
     --ena_sig <= '1', '0' after 100 us;
 
