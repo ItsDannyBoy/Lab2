@@ -21,6 +21,7 @@ port (
 end entity;
 architecture behave of shift_register is 
 	signal q_sig : std_logic_vector(Q'high downto Q'low); -- Same size as Q output
+	--signal q_sig : std_logic_vector(G_N_BITS-1 downto 0); -- Same size as Q output
 begin
 	Q <= q_sig;
 
