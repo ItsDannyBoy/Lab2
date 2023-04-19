@@ -35,9 +35,11 @@ begin
         elsif rising_edge(CLK) then
 			if ENA='1' then
 				if L_Rn = '1' then
-					q_reg <= std_logic_vector(rotate_left(unsigned(q_reg),1)); -- 1 is the number of bits to shift
+					--q_reg <= std_logic_vector(rotate_left(unsigned(q_reg),1)); -- 1 is the number of bits to shift
+					q_reg <= q_reg(q_reg'high-1 downto q_reg'low) & q_reg(q_reg'high); -- & is concatenation
 				else --L_Rn=0
-					q_reg <= std_logic_vector(rotate_right(unsigned(q_reg),1)); -- Type of shift depends on input to function.
+					--q_reg <= std_logic_vector(rotate_right(unsigned(q_reg),1)); -- Type of shift depends on input to function.
+					q_reg <= q_reg(q_reg'low) & q_reg(q_reg'high downto q_reg'low+1);
 													 				-- Unsigned=Logical, Signed=Arithmetic
 				-- The shift_left function in numeric_std package takes an unsigned as first argument and it returns an unsigned value.
 				end if;
