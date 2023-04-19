@@ -20,7 +20,7 @@ port (
 );
 end entity;
 architecture behave of shift_register is 
-	constant DEFAULT_VALUE : std_logic_vector(Q'high downto Q'low) := (Q'high => '0', others => '1');
+	constant DEFAULT_VALUE : std_logic_vector(Q'high downto Q'low) := (Q'low => '1', others => '0');
 	signal q_reg : std_logic_vector(Q'high downto Q'low) := DEFAULT_VALUE; -- Same size as Q output
 	--signal q_reg : std_logic_vector(G_N_BITS-1 downto 0); -- Same size as Q output
 	-- the initial state of the shift register is set in the architecture
