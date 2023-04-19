@@ -45,7 +45,8 @@ begin
     
     
     clk_sig <= not clk_sig after C_CLK_PRD / 2;     -- clk_sig toggles every C_CLK_PRD/2 ns
-    rst_sig <= '0', '1' after 100 ns;               -- the 100 ns is arbitrary
-    rate_sig <= '0', '1' after 100 us;
+    rst_sig <= '0', '1' after 50 ns;               -- the 100 ns is arbitrary
+    --rst_sig <= '0';               -- the 100 ns is arbitrary
+    rate_sig <= '0', '1' after 400 ns;
 
 end architecture;

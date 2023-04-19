@@ -1,20 +1,54 @@
 library ieee;
 use ieee.std_logic_1164.all;
-
 entity pulse_generator is
-port (
-	D_IN1,D_IN2,D_IN3, D_IN4 : in  std_logic_vector(7 downto 0);
-	SEL : in  std_logic_vector(1 downto 0);
-	Q_OUT  : out std_logic_vector(7 downto 0)
+generic (
+	G_CLOCKS_PER_PULSE      : in 	integer := 0  
+);
+port ( 
+	
+		RST                 : in    std_logic;
+        CLK                 : in    std_logic;
+        RATE                : in    std_logic;
+        PULSE               : out   std_logic
 );
 end entity;
-architecture behave of pulse_generator is 
+
+architecture behave of pulse_generator is
+--************* works but with many flip flops**************
+--	signal CLOCK_CNT	: integer := 0;
+--	constant G_CLOCKS_PER_PULSE_DOUBLED	: integer := G_CLOCKS_PER_PULSE * 2;
+--**********************************************************
+--************* works with ONE! flip flops******************
+	subtype integer_range is integer range 0 to G_CLOCKS_PER_PULSE * 2; -- used for limitng integer value of clock_counter and g_clocks_per_pulse_doubled integers
+																		-- helps minimizing the number of flipflops
+	constant G_CLOCKS_PER_PULSE_DOUBLED	: integer_range := G_CLOCKS_PER_PULSE * 2;
+    signal CLOCK_CNT : integer_range := 0;
 
 begin
-	with SEL select
-		Q_OUT<= D_IN1 when "00",
-				D_IN2 when "01",
-				D_IN3 when "10",
-				D_IN4 when "11",
-				(others=>'Z') when others;
+
+	process(RST, CLK)
+	begin
+		if RST = '0' then
+			PULSE <= '0';
+		elsif rising_edge(CLK) then
+			if RATE = '0' then
+				if CLOCK_CNT = G_CLOCKS_PER_PULSE - 1 then
+				CLOCK_CNT <= 0;					-- clear the clock counter
+				PULSE <= '1';						-- generate pulse
+				else
+					CLOCK_CNT <= CLOCK_CNT + 1;	-- increment the clock counter
+					PULSE <= '0';
+				end if;
+				
+			elsif RATE = '1' then
+				if CLOCK_CNT = G_CLOCKS_PER_PULSE_DOUBLED - 1 then
+					CLOCK_CNT <= 0;					-- clear the clock counter
+					PULSE <= '1';						-- generate pulse
+				else
+					CLOCK_CNT <= CLOCK_CNT + 1;	-- increment the clock counter
+					PULSE <= '0';
+				end if;
+			end if;
+		end if;
+	end process;	
 end architecture;
