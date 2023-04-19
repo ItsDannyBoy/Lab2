@@ -15,3 +15,7 @@ sim/wlft2r2za8
 sim/wlftf8qrdg
 sim/wlftfz6e34
 sim/wlftn5m14d
+par/pulse_generator.qpf
+par/pulse_generator.qsf
+par/db/pulse_generator.db_info
+par/db/pulse_generator.quiproj.12520.rdr.flock
