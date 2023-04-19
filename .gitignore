@@ -4,3 +4,6 @@ par/pulse_generator.qsf
 par/db/pulse_generator.db_info
 par/db/pulse_generator.quiproj.12520.rdr.flock
 sim/*[!.][!d][!o]
+sim/*
+sim/!*.do
+sim/wlftf8qrdg
