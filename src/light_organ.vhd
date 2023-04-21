@@ -73,14 +73,20 @@ begin
         PULSE               => pulse_to_enable_sig     -- outputs can be left opened
     );
 
-	process(CLK, RST)
+	process(q_to_leds_sig)
     begin
-        if RST='0' then
-            --q_to_leds_sig <= DEFAULT_VALUE; -- reset output to 0
-        elsif rising_edge(CLK) then
-            if q_to_leds_sig'high = 1 or q_to_leds_sig'low = 1 then
-                l_rn_sig <= not l_rn_sig;
-            end if;
+        if (q_to_leds_sig(q_to_leds_sig'high) = '1') then
+            l_rn_sig <= not l_rn_sig;
         end if;
     end process;
+
+    -- process(pulse_to_enable_sig)
+    -- begin
+    --     if falling_edge(pulse_to_enable_sig) then
+    --         -- if (q_to_leds_sig(q_to_leds_sig'high) = '1') or (q_to_leds_sig(q_to_leds_sig'low) = '1') then
+    --         if (q_to_leds_sig(q_to_leds_sig'high) = '1') then
+    --             l_rn_sig <= not l_rn_sig;
+    --         end if;
+    --     end if;
+    -- end process;
 end architecture;
