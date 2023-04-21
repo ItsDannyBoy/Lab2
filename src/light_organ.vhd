@@ -30,7 +30,7 @@ architecture behave of light_organ is
 
     component shift_register is                -- This is the component declaration.
     generic (
-	    G_N_BITS :    integer
+	    G_N_BITS :    integer 
     );
     port (
         CLK 	: in  std_logic; 
