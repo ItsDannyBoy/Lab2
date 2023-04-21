@@ -45,6 +45,7 @@ architecture behave of light_organ is
     signal q_to_leds_sig : std_logic_vector(LEDS'high downto LEDS'low) := DEFAULT_VALUE; -- Check if default value is needed
     signal l_rn_sig : std_logic := '1';
     signal pulse_to_enable_sig : std_logic;
+    signal counter : integer := 0;
     --signal q_to_leds_sig : std_logic;
 begin
     LEDS <= q_to_leds_sig;
@@ -73,20 +74,24 @@ begin
         PULSE               => pulse_to_enable_sig     -- outputs can be left opened
     );
 
-	process(q_to_leds_sig)
-    begin
-        if (q_to_leds_sig(q_to_leds_sig'high) = '1') then
-            l_rn_sig <= not l_rn_sig;
-        end if;
-    end process;
-
-    -- process(pulse_to_enable_sig)
+	-- process(q_to_leds_sig)
     -- begin
-    --     if falling_edge(pulse_to_enable_sig) then
-    --         -- if (q_to_leds_sig(q_to_leds_sig'high) = '1') or (q_to_leds_sig(q_to_leds_sig'low) = '1') then
-    --         if (q_to_leds_sig(q_to_leds_sig'high) = '1') then
-    --             l_rn_sig <= not l_rn_sig;
-    --         end if;
+    --     if (q_to_leds_sig(q_to_leds_sig'high) = '1') then
+    --         l_rn_sig <= not l_rn_sig;
     --     end if;
     -- end process;
+
+    process(pulse_to_enable_sig, RST)
+    begin
+        if RST = '0' then -- return all signals to initial state
+            counter <= 0;
+            l_rn_sig <= '1';
+        elsif falling_edge(pulse_to_enable_sig) then
+            counter <= counter + 1;
+            if (counter = G_NUM_OF_LEDS-2) then
+                l_rn_sig <= not l_rn_sig;
+                counter <= 0;
+            end if;
+        end if;
+    end process;
 end architecture;
