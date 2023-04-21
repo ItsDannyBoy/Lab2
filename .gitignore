@@ -7,3 +7,5 @@ sim/*[!.][!d][!o]
 sim/*
 sim/!*.do
 sim/wlftf8qrdg
+par/pulse_generator.qws
+par/db/pulse_generator.sld_design_entry.sci
