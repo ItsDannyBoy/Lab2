@@ -12,5 +12,5 @@ add wave -group light_organ light_organ_tb/uut/*
 add wave -group shift light_organ_tb/uut/shift_reg/*
 add wave -group gen light_organ_tb/uut/pulse_gen/*
 #restart -f
-run 1000 ms
+run 1500 ns
 #run -all
