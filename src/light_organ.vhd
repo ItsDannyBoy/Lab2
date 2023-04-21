@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity light_organ is
 generic (
 	G_NUM_OF_LEDS          : integer := 8; --Total number of LED connected to the output. Should be 8 by default
-    G_CLOCKS_PER_PULSE     : integer
+    G_CLOCKS_PER_PULSE     : integer := 12500000
 );
 port (
 	CLK 	: in  std_logic; -- System clock
