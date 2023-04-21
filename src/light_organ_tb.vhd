@@ -8,7 +8,7 @@ architecture behave of light_organ_tb is    -- This is the architecture of the t
 
     -- constants declaration    
 	constant C_NUM_OF_LEDS               : integer := 9;
-	constant C_CLOCKS_PER_PULSE          : integer := 2;
+	constant C_CLOCKS_PER_PULSE          : integer := 12500000; --12,500,000
     constant C_CLK_PRD              : time := 20 ns; -- 50Mhz
     constant C_ITERATIONS           : integer := 3; -- Value is arbitrary
     
@@ -31,7 +31,7 @@ architecture behave of light_organ_tb is    -- This is the architecture of the t
     -- signals declaration  
     signal clk_sig  : std_logic := '0';
     signal rst_sig  : std_logic := '1';
-    signal rate_sig  : std_logic := '1';
+    signal rate_sig  : std_logic := '0';
     
 begin
    
@@ -46,21 +46,21 @@ begin
         RATE  => rate_sig, -- The RST input of the uut instance of the pulse generator component is connected to rate_sig signal
         LEDS => open  
     );
-    process
-    begin
-        for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for (2*C_NUM_OF_LEDS+1)*C_CLK_PRD/2 + C_CLK_PRD/10; --Enough for Q to perform a full cycle
-            rst_sig <= not rst_sig;
-        end loop;
-	end process;
+    --process
+    -- begin
+    --     for iteration in 0 to C_ITERATIONS loop -- Goes up
+    --         wait for (2*C_NUM_OF_LEDS+1)*C_CLK_PRD/2 + C_CLK_PRD/10; --Enough for Q to perform a full cycle
+    --         rst_sig <= not rst_sig;
+    --     end loop;
+	-- end process;
 
-    process
-    begin
-        for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for (4*C_NUM_OF_LEDS+3)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
-            rate_sig <= not rate_sig;
-        end loop;
-	end process;
+    -- process
+    -- begin
+    --     for iteration in 0 to C_ITERATIONS loop -- Goes up
+    --         wait for (4*C_NUM_OF_LEDS+3)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
+    --         rate_sig <= not rate_sig;
+    --     end loop;
+	-- end process;
 
     -- process
     -- begin
