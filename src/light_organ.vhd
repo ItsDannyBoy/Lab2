@@ -45,7 +45,7 @@ architecture behave of light_organ is
     signal q_to_leds_sig : std_logic_vector(LEDS'high downto LEDS'low) := DEFAULT_VALUE; -- Check if default value is needed
     signal l_rn_sig : std_logic := '1';
     signal pulse_to_enable_sig : std_logic;
-    signal counter : integer := 0;
+    signal counter : integer range 0 to G_NUM_OF_LEDS - 1 := 0;
     --signal q_to_leds_sig : std_logic;
 begin
     LEDS <= q_to_leds_sig;
