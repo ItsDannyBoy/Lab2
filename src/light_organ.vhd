@@ -41,11 +41,12 @@ architecture behave of light_organ is
     );
     end component;
 
-    constant DEFAULT_VALUE : std_logic_vector(LEDS'high downto LEDS'low) := (LEDS'low => '1', others => '0');
-    signal q_to_leds_sig : std_logic_vector(LEDS'high downto LEDS'low) := DEFAULT_VALUE; -- Check if default value is needed
+    constant LOW_DEFAULT_VALUE : std_logic_vector(LEDS'high downto LEDS'low) := (LEDS'low => '1', others => '0');
+    constant HIGH_DEFAULT_VALUE : std_logic_vector(LEDS'high downto LEDS'low) := (LEDS'high => '1', others => '0');
+    signal q_to_leds_sig : std_logic_vector(LEDS'high downto LEDS'low) := LOW_DEFAULT_VALUE; -- Check if default value is needed
     signal l_rn_sig : std_logic := '1';
     signal pulse_to_enable_sig : std_logic;
-    signal counter : integer range 0 to G_NUM_OF_LEDS - 1 := 0;
+--    signal counter : integer range 0 to G_NUM_OF_LEDS - 1 := 0;
     --signal q_to_leds_sig : std_logic;
 begin
     LEDS <= q_to_leds_sig;
@@ -84,15 +85,14 @@ begin
     process(CLK, RST)
     begin
         if RST = '0' then -- return all signals to initial state
-            counter <= 0;
+           -- counter <= 0;
             l_rn_sig <= '1';
         elsif rising_edge(CLK) then
-            if (pulse_to_enable_sig='1') then
-                counter <= counter + 1;
-                if (counter = G_NUM_OF_LEDS-2) then
-                    l_rn_sig <= not l_rn_sig;
-                    counter <= 0;
-                end if;
+            if (q_to_leds_sig = HIGH_DEFAULT_VALUE) then
+                l_rn_sig <= '0';
+            elsif (q_to_leds_sig = LOW_DEFAULT_VALUE) then
+                l_rn_sig <= '1';
+           --     counter <= 0;
             end if;
         end if;
     end process;
