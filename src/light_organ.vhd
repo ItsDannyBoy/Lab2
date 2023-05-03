@@ -81,16 +81,18 @@ begin
     --     end if;
     -- end process;
 
-    process(pulse_to_enable_sig, RST)
+    process(CLK, RST)
     begin
         if RST = '0' then -- return all signals to initial state
             counter <= 0;
             l_rn_sig <= '1';
-        elsif falling_edge(pulse_to_enable_sig) then
-            counter <= counter + 1;
-            if (counter = G_NUM_OF_LEDS-2) then
-                l_rn_sig <= not l_rn_sig;
-                counter <= 0;
+        elsif rising_edge(CLK) then
+            if (pulse_to_enable_sig='1') then
+                counter <= counter + 1;
+                if (counter = G_NUM_OF_LEDS-2) then
+                    l_rn_sig <= not l_rn_sig;
+                    counter <= 0;
+                end if;
             end if;
         end if;
     end process;
