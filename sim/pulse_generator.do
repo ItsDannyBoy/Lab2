@@ -6,6 +6,7 @@ vcom ../src/pulse_generator_tb.vhd
 vsim pulse_generator_tb
 
 add wave -group pulse_generator_test pulse_generator_tb/dut/*
+config wave -signalnamewidth 1
 --restart -f
 
 
