@@ -31,25 +31,24 @@ architecture behave of shift_register_tb is    -- This is the architecture of th
     signal rst_sig  : std_logic := '1';
     signal ena_sig  : std_logic := '1';
     signal l_rn_sig  : std_logic := '1';
-    --signal q_out_sig  : std_logic_vector(C_N_BITS-1 downto 0) := (others=>'0');
     signal q_out_sig  : std_logic_vector(C_N_BITS-1 downto 0);
     
 begin
    
     uut: shift_register                    -- This is the component instantiation. uut is the instance name of the component shift_register
     generic map (
-        G_N_BITS  => C_N_BITS -- The G_N_BITS generic of the uut instance of the pulse generator component
+        G_N_BITS  => C_N_BITS -- The G_N_BITS generic of the uut instance of the shift register component
                               -- is set to the value of the constant C_N_BITS (which is declared in line 10)
     )
     port map (
-        RST                 => rst_sig, -- The RST input of the uut instance of the pulse generator component is connected to rst_sig signal
-        CLK                 => clk_sig, -- The CLK input of the uut instance of the pulse generator component is connected to clk_sig signal
+        RST                 => rst_sig, -- The RST input of the uut instance of the shift register component is connected to rst_sig signal
+        CLK                 => clk_sig, -- The CLK input of the uut instance of the shift register component is connected to clk_sig signal
         ENA                 => ena_sig,
         L_Rn                => l_rn_sig,
         Q                   => q_out_sig    
     );
     process
-    begin
+    begin -- Alternate rst_sig after 1 and a half full cycles
         for iteration in 0 to C_ITERATIONS loop -- Goes up
             wait for (2*C_N_BITS+1)*C_CLK_PRD/2 + C_CLK_PRD/10; --Enough for Q to perform a full cycle
             rst_sig <= not rst_sig;
@@ -57,7 +56,7 @@ begin
 	end process;
 
     process
-    begin
+    begin -- Alternate ena_sig after 2 and a half full cycles
         for iteration in 0 to C_ITERATIONS loop -- Goes up
             wait for (4*C_N_BITS+3)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
             ena_sig <= not ena_sig;
@@ -65,17 +64,13 @@ begin
 	end process;
 
     process
-    begin
+    begin -- Alternate l_rn_sig after 3 and a half full cycles
         for iteration in 0 to C_ITERATIONS loop -- Goes up
             wait for (8*C_N_BITS+7)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
             l_rn_sig <= not l_rn_sig;
         end loop;
 	end process;
-    --q_out_sig <= "1011";
-    -- create_q: for i in q_out_sig'range generate
-    --     q_out_sig(i) <= '1' when i mod 2 = 1 else '0';
-    -- end generate;
+
     clk_sig <= not clk_sig after C_CLK_PRD / 2;     -- clk_sig toggles every C_CLK_PRD/2 ns
-    --ena_sig <= '1', '0' after 100 us;
 
 end architecture;

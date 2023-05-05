@@ -2,27 +2,23 @@ library ieee;
 use ieee.std_logic_1164.all;
 entity pulse_generator is
 generic (
-	G_CLOCKS_PER_PULSE      : in 	integer := 8  
+	G_CLOCKS_PER_PULSE      : in 	integer := 8  -- Number of clocks counted before pulse is generated
 );
 port ( 
 	
-		RST                 : in    std_logic;
-        CLK                 : in    std_logic;
-        RATE                : in    std_logic;
-        PULSE               : out   std_logic
+		RST                 : in    std_logic; -- Asynchronous system reset, active low
+        CLK                 : in    std_logic; -- System clock
+        RATE                : in    std_logic; -- 0 – PULSE output cycle is G_CLOCKS_PER_PULSE CLK cycles
+											   -- 1 – PULSE output cycle is G_CLOCKS_PER_PULSE×2 CLK cycles
+        PULSE               : out   std_logic  -- Periodic pulse. Must be ‘1’ for exactly 1 CLK cycle. 
+										       -- The period time (in CLK cycles) is determined by RATE input
+											   -- and G_CLOCKS_PER_PULSE1 and G_CLOCKS_PER_PULSE2 generics.
 );
 end entity;
 
 architecture behave of pulse_generator is
---***** works but with many flip flops******
 	signal CLOCK_CNT	: integer range 0 to G_CLOCKS_PER_PULSE * 2-1 := 0;
 	constant G_CLOCKS_PER_PULSE_DOUBLED	: integer := G_CLOCKS_PER_PULSE * 2;
---********************
---***** works with ONE! flip flops********
---	subtype integer_range is integer range 0 to G_CLOCKS_PER_PULSE * 2; -- used for limitng integer value of clock_counter and g_clocks_per_pulse_doubled integers
-																		-- helps minimizing the number of flipflops
-	--constant G_CLOCKS_PER_PULSE_DOUBLED	: integer_range := G_CLOCKS_PER_PULSE * 2;
-  --  signal CLOCK_CNT : integer_range := 0;
 
 begin
 

@@ -22,7 +22,6 @@ end entity;
 architecture behave of shift_register is 
 	constant DEFAULT_VALUE : std_logic_vector(Q'high downto Q'low) := (Q'low => '1', others => '0');
 	signal q_reg : std_logic_vector(Q'high downto Q'low) := DEFAULT_VALUE; -- Same size as Q output
-	--signal q_reg : std_logic_vector(G_N_BITS-1 downto 0); -- Same size as Q output
 	-- the initial state of the shift register is set in the architecture
 	-- declaration of the shift_register entity
 begin
@@ -34,14 +33,10 @@ begin
             q_reg <= DEFAULT_VALUE; -- reset output to 0
         elsif rising_edge(CLK) then
 			if ENA='1' then
-				if L_Rn = '1' then
-					--q_reg <= std_logic_vector(rotate_left(unsigned(q_reg),1)); -- 1 is the number of bits to shift
+				if L_Rn = '1' then -- rotate left
 					q_reg <= q_reg(q_reg'high-1 downto q_reg'low) & q_reg(q_reg'high); -- & is concatenation
-				else --L_Rn=0
-					--q_reg <= std_logic_vector(rotate_right(unsigned(q_reg),1)); -- Type of shift depends on input to function.
-					q_reg <= q_reg(q_reg'low) & q_reg(q_reg'high downto q_reg'low+1);
-													 				-- Unsigned=Logical, Signed=Arithmetic
-				-- The shift_left function in numeric_std package takes an unsigned as first argument and it returns an unsigned value.
+				else -- rotate right
+					q_reg <= q_reg(q_reg'low) & q_reg(q_reg'high downto q_reg'low+1);		 		
 				end if;
 			end if;
         end if;

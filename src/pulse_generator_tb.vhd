@@ -6,8 +6,8 @@ end entity;
 
 architecture behave of pulse_generator_tb is    -- This is the architecture of the testbench
 
--- constants declaration    
-	constant C_CLOCKS_PER_PULSE     : integer := 7;
+    -- constants declaration    
+	constant C_CLOCKS_PER_PULSE     : integer := 12500000;
     constant C_CLK_PRD              : time := 20 ns;
     
 
@@ -46,7 +46,6 @@ begin
     
     clk_sig <= not clk_sig after C_CLK_PRD / 2;     -- clk_sig toggles every C_CLK_PRD/2 ns
     rst_sig <= '0', '1' after 50 ns;               -- the 100 ns is arbitrary
-    --rst_sig <= '0';               -- the 100 ns is arbitrary
     rate_sig <= '0', '1' after 400 ns;
 
 end architecture;

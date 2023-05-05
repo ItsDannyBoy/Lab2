@@ -41,9 +41,9 @@ begin
         G_CLOCKS_PER_PULSE => C_CLOCKS_PER_PULSE
     )
     port map (
-        CLK  => clk_sig, -- The CLK input of the uut instance of the pulse generator component is connected to clk_sig signal
-        RST  => rst_sig, -- The RST input of the uut instance of the pulse generator component is connected to rst_sig signal
-        RATE  => rate_sig, -- The RST input of the uut instance of the pulse generator component is connected to rate_sig signal
+        CLK  => clk_sig, -- The CLK input of the uut instance of the light organ component is connected to clk_sig signal
+        RST  => rst_sig, -- The RST input of the uut instance of the light organ component is connected to rst_sig signal
+        RATE  => rate_sig, -- The RST input of the uut instance of the light organ component is connected to rate_sig signal
         LEDS => open  
     );
     process
@@ -55,22 +55,6 @@ begin
             rst_sig <= not rst_sig;
         end loop;
 	end process;
-
-    -- process
-    -- begin
-    --     for iteration in 0 to C_ITERATIONS loop -- Goes up
-    --         wait for (4*C_NUM_OF_LEDS+3)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
-    --         rate_sig <= not rate_sig;
-    --     end loop;
-	-- end process;
-
-    -- process
-    -- begin
-    --     for iteration in 0 to C_ITERATIONS loop -- Goes up
-    --         wait for (8*C_NUM_OF_LEDS+7)*C_CLK_PRD/2; -- All entries (except RST) are synchronized with clock rising edge
-    --         l_rn_sig <= not l_rn_sig;
-    --     end loop;
-	-- end process;
 
     clk_sig <= not clk_sig after C_CLK_PRD / 2;     -- clk_sig toggles every C_CLK_PRD/2 ns
 
