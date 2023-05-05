@@ -10,4 +10,4 @@ config wave -signalnamewidth 1
 --restart -f
 
 
-run 2000 ms
+run 1000ns
