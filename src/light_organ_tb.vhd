@@ -49,7 +49,7 @@ begin
     process
     begin
         for iteration in 0 to C_ITERATIONS loop -- Goes up
-            wait for (8*C_NUM_OF_LEDS+7)*C_CLK_PRD/2 + C_CLK_PRD/10; --Enough for Q to perform a full cycle
+            wait for (8*C_NUM_OF_LEDS+7)*C_CLK_PRD/2 + C_CLK_PRD/10; --Enough for LEDS to perform a full cycle
             rst_sig <= not rst_sig;
             wait for C_CLK_PRD/10;
             rst_sig <= not rst_sig;
