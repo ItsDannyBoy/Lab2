@@ -49,7 +49,7 @@ begin
         wait for 3*C_CLK_PRD;
         rst_sig <= not rst_sig;
         rate_sig <= not rate_sig;
-        wait for (4*C_CLOCKS_PER_PULSE+3)*C_CLK_PRD/2 + C_CLK_PRD/10; --Enough for PULSE to perform a full cycle
+        wait for (4*C_CLOCKS_PER_PULSE+3)*C_CLK_PRD/2 + C_CLK_PRD/10; 
         rst_sig <= not rst_sig; -- Check interrupting when rate is *2
         wait for C_CLK_PRD/10;
         rst_sig <= not rst_sig;
